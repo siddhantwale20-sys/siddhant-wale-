@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Siddhant Wale — Portfolio</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FontAwesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cyber: {
+              cyan:    '#00f5ff',
+              purple:  '#bf00ff',
+              pink:    '#ff007f',
+              dark:    '#030712',
+              darker:  '#010409',
+              card:    '#0d1117',
+              border:  '#1a2332',
+            }
+          },
+          fontFamily: {
+            orbitron: ['Orbitron', 'sans-serif'],
+            rajdhani: ['Rajdhani', 'sans-serif'],
+            mono:     ['JetBrains Mono', 'monospace'],
+          },
+          animation: {
+            'glow-pulse':    'glowPulse 2s ease-in-out infinite alternate',
+            'float':         'float 6s ease-in-out infinite',
+            'scan-line':     'scanLine 3s linear infinite',
+            'border-dance':  'borderDance 4s linear infinite',
+            'fade-up':       'fadeUp 0.8s ease forwards',
+            'type-cursor':   'typeCursor 1s step-end infinite',
+          },
+          keyframes: {
+            glowPulse:  { '0%':   { textShadow: '0 0 10px #00f5ff, 0 0 20px #00f5ff' },
+                          '100%': { textShadow: '0 0 20px #00f5ff, 0 0 40px #00f5ff, 0 0 60px #00f5ff' } },
+            float:      { '0%,100%': { transform: 'translateY(0px)' },
+                          '50%':     { transform: 'translateY(-20px)' } },
+            scanLine:   { '0%':   { top: '-5%' }, '100%': { top: '105%' } },
+            borderDance:{ '0%,100%': { backgroundPosition: '0% 50%' },
+                          '50%':     { backgroundPosition: '100% 50%' } },
+            fadeUp:     { '0%':   { opacity: '0', transform: 'translateY(30px)' },
+                          '100%': { opacity: '1', transform: 'translateY(0)' } },
+            typeCursor: { '0%,100%': { opacity: '1' }, '50%': { opacity: '0' } },
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* ── Base ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #010409;
+      color: #c9d1d9;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 17px;
+      overflow-x: hidden;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #010409; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(#00f5ff, #bf00ff); border-radius: 3px; }
+
+    /* ── Selection ── */
+    ::selection { background: #00f5ff33; color: #00f5ff; }
+
+    /* ── Grid background ── */
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(0,245,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,245,255,.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* ── Glassmorphism card ── */
+    .glass {
+      background: rgba(13,17,23,.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0,245,255,.12);
+      transition: border-color .3s, box-shadow .3s, transform .3s;
+    }
+    .glass:hover {
+      border-color: rgba(0,245,255,.4);
+      box-shadow: 0 0 30px rgba(0,245,255,.1), 0 0 60px rgba(191,0,255,.06);
+      transform: translateY(-4px);
+    }
+
+    /* ── Neon text ── */
+    .neon-cyan   { color: #00f5ff; text-shadow: 0 0 10px #00f5ff, 0 0 20px #00f5ff; }
+    .neon-purple { color: #bf00ff; text-shadow: 0 0 10px #bf00ff, 0 0 20px #bf00ff; }
+
+    /* ── Neon border ── */
+    .neon-border {
+      border: 1px solid #00f5ff44;
+      box-shadow: 0 0 12px rgba(0,245,255,.15), inset 0 0 12px rgba(0,245,255,.04);
+    }
+
+    /* ── Gradient text ── */
+    .grad-text {
+      background: linear-gradient(135deg, #00f5ff 0%, #bf00ff 60%, #ff007f 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── CTA button ── */
+    .btn-primary {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .75rem 2rem;
+      border: 1px solid #00f5ff;
+      color: #00f5ff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      background: transparent;
+      cursor: pointer;
+      overflow: hidden;
+      transition: color .3s, box-shadow .3s;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: #00f5ff;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .35s ease;
+      z-index: 0;
+    }
+    .btn-primary:hover::before { transform: scaleX(1); }
+    .btn-primary:hover { color: #010409; box-shadow: 0 0 25px #00f5ff88; }
+    .btn-primary span { position: relative; z-index: 1; }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .75rem 2rem;
+      border: 1px solid rgba(191,0,255,.5);
+      color: #bf00ff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      background: transparent;
+      cursor: pointer;
+      transition: all .3s;
+    }
+    .btn-secondary:hover {
+      background: rgba(191,0,255,.12);
+      box-shadow: 0 0 25px #bf00ff66;
+      border-color: #bf00ff;
+    }
+
+    /* ── Section heading underline ── */
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      letter-spacing: .05em;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      margin-top: 10px;
+      height: 2px;
+      width: 60px;
+      background: linear-gradient(90deg, #00f5ff, #bf00ff);
+      border-radius: 2px;
+    }
+
+    /* ── Skill chip ── */
+    .skill-chip {
+      background: rgba(0,245,255,.06);
+      border: 1px solid rgba(0,245,255,.2);
+      border-radius: 8px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      transition: all .3s;
+    }
+    .skill-chip:hover {
+      background: rgba(0,245,255,.12);
+      border-color: #00f5ff;
+      box-shadow: 0 0 20px rgba(0,245,255,.2);
+      transform: translateY(-4px);
+    }
+
+    /* ── Tag ── */
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .7rem;
+      padding: .2rem .6rem;
+      border-radius: 4px;
+      background: rgba(0,245,255,.08);
+      border: 1px solid rgba(0,245,255,.25);
+      color: #00f5ff;
+    }
+
+    /* ── Nav link ── */
+    .nav-link {
+      font-family: 'Orbitron', sans-serif;
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #8b949e;
+      transition: color .3s;
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -4px;
+      height: 1px; width: 0;
+      background: #00f5ff;
+      transition: width .3s;
+    }
+    .nav-link:hover { color: #00f5ff; }
+    .nav-link:hover::after { width: 100%; }
+
+    /* ── Scan-line overlay ── */
+    .scan-overlay {
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border-radius: inherit;
+    }
+    .scan-overlay::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(0,245,255,.4), transparent);
+      animation: scanLine 3s linear infinite;
+    }
+
+    /* ── Input ── */
+    .cyber-input {
+      width: 100%;
+      background: rgba(0,245,255,.04);
+      border: 1px solid rgba(0,245,255,.2);
+      border-radius: 6px;
+      padding: .85rem 1rem;
+      color: #c9d1d9;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .cyber-input::placeholder { color: #4a5568; }
+    .cyber-input:focus {
+      border-color: #00f5ff;
+      box-shadow: 0 0 15px rgba(0,245,255,.15);
+    }
+
+    /* ── Social icon ── */
+    .social-icon {
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(0,245,255,.25);
+      border-radius: 8px;
+      color: #8b949e;
+      font-size: 1.1rem;
+      transition: all .3s;
+      background: rgba(0,245,255,.04);
+    }
+    .social-icon:hover {
+      color: #00f5ff;
+      border-color: #00f5ff;
+      box-shadow: 0 0 18px rgba(0,245,255,.3);
+      transform: translateY(-3px);
+    }
+
+    /* ── Glowing orb ── */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    /* ── Corner decoration ── */
+    .corner-tl, .corner-br {
+      position: absolute;
+      width: 16px; height: 16px;
+      border-color: #00f5ff;
+      border-style: solid;
+      opacity: .6;
+    }
+    .corner-tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+    .corner-br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+    /* ── Reveal on scroll ── */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── Typewriter cursor ── */
+    .cursor-blink { display: inline-block; animation: typeCursor 1s step-end infinite; color: #00f5ff; }
+
+    /* ── Mobile menu ── */
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: flex; }
+
+    /* ── Progress bar ── */
+    .progress-bar {
+      height: 4px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #00f5ff, #bf00ff);
+      box-shadow: 0 0 8px rgba(0,245,255,.4);
+      transition: width 1.2s ease;
+      width: 0;
+    }
+  </style>
+</head>
+
+<body class="grid-bg">
+
+  <!-- ════════════════════════════════════════════════════════ NAVBAR -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background: rgba(1,4,9,.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,245,255,.08);">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#hero" class="font-orbitron font-black text-lg tracking-widest neon-cyan select-none">SW<span class="text-white opacity-30">://</span></a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#about"   class="nav-link">About</a>
+        <a href="#skills"  class="nav-link">Skills</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+
+      <!-- Hamburger -->
+      <button id="hamburger" class="md:hidden text-cyber-cyan text-xl p-2" aria-label="Toggle menu">
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="flex-col md:hidden px-6 pb-5 gap-4 border-t border-cyber-border">
+      <a href="#about"    class="nav-link py-2">About</a>
+      <a href="#skills"   class="nav-link py-2">Skills</a>
+      <a href="#projects" class="nav-link py-2">Projects</a>
+      <a href="#contact"  class="nav-link py-2">Contact</a>
+    </div>
+  </nav>
+
+
+  <!-- ════════════════════════════════════════════════════════ HERO -->
+  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+
+    <!-- Background orbs -->
+    <div class="orb w-[500px] h-[500px] bg-cyan-500 opacity-[.06] top-[10%] left-[-10%]"></div>
+    <div class="orb w-[600px] h-[600px] bg-purple-600 opacity-[.05] bottom-[5%] right-[-15%]"></div>
+    <div class="orb w-[300px] h-[300px] bg-pink-500 opacity-[.04] top-[60%] left-[40%]"></div>
+
+    <!-- Floating geometric element -->
+    <div class="absolute right-[8%] top-[20%] w-48 h-48 md:w-64 md:h-64 animate-float hidden lg:block" style="opacity:.55">
+      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,10 190,60 190,140 100,190 10,140 10,60" stroke="#00f5ff" stroke-width="1" fill="rgba(0,245,255,0.03)" />
+        <polygon points="100,35 165,72 165,128 100,165 35,128 35,72" stroke="#bf00ff" stroke-width="1" fill="rgba(191,0,255,0.03)" />
+        <circle cx="100" cy="100" r="20" stroke="#00f5ff" stroke-width="1" fill="rgba(0,245,255,0.08)" />
+        <line x1="100" y1="10" x2="100" y2="80" stroke="#00f5ff" stroke-width="0.5" opacity="0.5" />
+        <line x1="190" y1="60" x2="130" y2="82" stroke="#00f5ff" stroke-width="0.5" opacity="0.5" />
+        <line x1="190" y1="140" x2="130" y2="118" stroke="#00f5ff" stroke-width="0.5" opacity="0.5" />
+        <line x1="100" y1="190" x2="100" y2="120" stroke="#00f5ff" stroke-width="0.5" opacity="0.5" />
+        <line x1="10" y1="140" x2="70" y2="118" stroke="#00f5ff" stroke-width="0.5" opacity="0.5" />
+        <line x1="10" y1="60" x2="70" y2="82" stroke="#00f5ff" stroke-width="0.5" opacity="0.5" />
+      </svg>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 mb-8 border border-cyber-cyan border-opacity-30 rounded-full text-cyber-cyan font-mono text-xs tracking-widest uppercase" style="background: rgba(0,245,255,.05); animation: fadeUp .6s ease both .1s; opacity:0">
+        <span class="w-2 h-2 rounded-full bg-cyber-cyan animate-pulse"></span>
+        Available for opportunities
+      </div>
+
+      <!-- Greeting -->
+      <p class="font-mono text-sm tracking-widest text-gray-500 mb-3" style="animation: fadeUp .6s ease both .2s; opacity:0">
+        // Hello, World! I'm
+      </p>
+
+      <!-- Name -->
+      <h1 class="font-orbitron font-black text-5xl sm:text-7xl md:text-8xl mb-4 leading-none tracking-tight grad-text" style="animation: fadeUp .6s ease both .35s; opacity:0">
+        SIDDHANT<br/>WALE
+      </h1>
+
+      <!-- Role typewriter -->
+      <div class="font-mono text-lg sm:text-xl md:text-2xl text-gray-400 mb-6" style="animation: fadeUp .6s ease both .5s; opacity:0">
+        <span id="typewriter-text" class="text-cyber-cyan"></span><span class="cursor-blink">|</span>
+      </div>
+
+      <!-- Bio -->
+      <p class="max-w-2xl mx-auto text-gray-400 text-base sm:text-lg leading-relaxed mb-10 font-rajdhani" style="animation: fadeUp .6s ease both .65s; opacity:0">
+        B.Tech Computer Science and Engineering student at MIT VPU. Passionate about software development,
+        problem-solving, and building modern web solutions.
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center" style="animation: fadeUp .6s ease both .8s; opacity:0">
+        <a href="#projects" class="btn-primary rounded-none"><span><i class="fa fa-code mr-2"></i>View Work</span></a>
+        <a href="#contact"  class="btn-secondary rounded-none"><i class="fa fa-paper-plane mr-2"></i>Contact Me</a>
+      </div>
+
+      <!-- Stats row -->
+      <div class="flex flex-wrap justify-center gap-10 mt-16 pt-10 border-t border-cyber-border" style="animation: fadeUp .6s ease both 1s; opacity:0">
+        <div class="text-center">
+          <p class="font-orbitron font-bold text-3xl neon-cyan">3+</p>
+          <p class="text-gray-500 text-sm font-mono tracking-wide">Projects Built</p>
+        </div>
+        <div class="text-center">
+          <p class="font-orbitron font-bold text-3xl neon-purple">7+</p>
+          <p class="text-gray-500 text-sm font-mono tracking-wide">Languages Known</p>
+        </div>
+        <div class="text-center">
+          <p class="font-orbitron font-bold text-3xl" style="color:#ff007f; text-shadow: 0 0 10px #ff007f">∞</p>
+          <p class="text-gray-500 text-sm font-mono tracking-wide">Curiosity Level</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+      <span class="font-mono text-xs tracking-widest text-gray-600">SCROLL</span>
+      <div class="w-px h-12 bg-gradient-to-b from-cyber-cyan to-transparent animate-pulse"></div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════ ABOUT -->
+  <section id="about" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+
+      <div class="reveal grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+        <!-- Left – text -->
+        <div>
+          <p class="font-mono text-cyber-cyan text-xs tracking-widest mb-3">// 01. about_me</p>
+          <h2 class="section-title text-4xl sm:text-5xl text-white mb-8">About Me</h2>
+
+          <div class="space-y-5 text-gray-400 leading-relaxed text-base">
+            <p>
+              I'm <span class="text-white font-semibold">Siddhant Wale</span>, a passionate B.Tech CSE student at
+              <span class="neon-cyan font-semibold">MIT Vishwaprayag University (MIT-VPU)</span>, on a mission to craft
+              elegant software that solves real-world problems.
+            </p>
+            <p>
+              My engineering journey started with a fascination for how things work under the hood — from data structures
+              and algorithms to scalable web architecture. I believe great software isn't just functional; it should be
+              beautifully designed and delightful to use.
+            </p>
+            <p>
+              When I'm not coding, you'll find me exploring emerging technologies, contributing to open-source projects,
+              or deepening my understanding of system design and computer science fundamentals.
+            </p>
+          </div>
+
+          <!-- Core interests -->
+          <div class="mt-8 flex flex-wrap gap-3">
+            <span class="tag"><i class="fa fa-code mr-1"></i> Web Dev</span>
+            <span class="tag"><i class="fa fa-brain mr-1"></i> Problem Solving</span>
+            <span class="tag"><i class="fa fa-microchip mr-1"></i> System Design</span>
+            <span class="tag"><i class="fa fa-robot mr-1"></i> AI / ML</span>
+            <span class="tag"><i class="fa fa-database mr-1"></i> Data Structures</span>
+          </div>
+        </div>
+
+        <!-- Right – edu card -->
+        <div class="flex flex-col gap-6">
+
+          <!-- Education card -->
+          <div class="glass rounded-2xl p-7 relative overflow-hidden">
+            <div class="corner-tl"></div><div class="corner-br"></div>
+            <div class="scan-overlay"></div>
+            <div class="flex items-start gap-4 relative z-10">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style="background: rgba(0,245,255,.1); color: #00f5ff">
+                <i class="fa fa-graduation-cap"></i>
+              </div>
+              <div>
+                <h3 class="font-orbitron font-bold text-white text-base mb-1">B.Tech — CSE</h3>
+                <p class="text-cyber-cyan font-semibold text-sm mb-1">MIT Vishwaprayag University</p>
+                <p class="text-gray-500 text-sm font-mono">2022 – 2026 · Pune, Maharashtra</p>
+                <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                  Specialising in software engineering, algorithms, data structures, and full-stack web development.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick facts -->
+          <div class="glass rounded-2xl p-7 relative">
+            <div class="corner-tl"></div><div class="corner-br"></div>
+            <h3 class="font-orbitron text-white text-sm mb-5 tracking-wide">QUICK FACTS</h3>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3 text-sm">
+                <i class="fa fa-map-marker-alt text-cyber-cyan w-4"></i>
+                <span class="text-gray-400">Maharashtra, India</span>
+              </div>
+              <div class="flex items-center gap-3 text-sm">
+                <i class="fa fa-laptop-code text-cyber-cyan w-4"></i>
+                <span class="text-gray-400">Full-Stack Web Developer</span>
+              </div>
+              <div class="flex items-center gap-3 text-sm">
+                <i class="fa fa-lightbulb text-cyber-cyan w-4"></i>
+                <span class="text-gray-400">Open to internships & collaborations</span>
+              </div>
+              <div class="flex items-center gap-3 text-sm">
+                <i class="fa fa-heart text-cyber-cyan w-4"></i>
+                <span class="text-gray-400">Loves clean code & good design</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════ SKILLS -->
+  <section id="skills" class="py-24 px-6 relative overflow-hidden">
+    <div class="orb w-[400px] h-[400px] bg-purple-700 opacity-[.04] top-0 right-0"></div>
+
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal text-center mb-16">
+        <p class="font-mono text-cyber-purple text-xs tracking-widest mb-3">// 02. skills</p>
+        <h2 class="section-title text-4xl sm:text-5xl text-white inline-block">Tech Arsenal</h2>
+        <p class="text-gray-500 mt-5 max-w-xl mx-auto text-base">
+          Technologies and tools I wield to build robust, scalable, and modern applications.
+        </p>
+      </div>
+
+      <!-- Languages -->
+      <div class="reveal mb-12">
+        <h3 class="font-orbitron text-cyber-cyan text-sm tracking-widest mb-6 flex items-center gap-3">
+          <span class="h-px flex-1 bg-gradient-to-r from-cyber-cyan to-transparent"></span>
+          LANGUAGES
+          <span class="h-px flex-1 bg-gradient-to-l from-cyber-cyan to-transparent"></span>
+        </h3>
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-4">
+          <!-- Each skill chip -->
+          <div class="skill-chip">
+            <i class="fab fa-python text-2xl" style="color:#3776AB"></i>
+            <span class="text-xs font-mono text-gray-400">Python</span>
+          </div>
+          <div class="skill-chip">
+            <i class="fab fa-js-square text-2xl" style="color:#F7DF1E"></i>
+            <span class="text-xs font-mono text-gray-400">JavaScript</span>
+          </div>
+          <div class="skill-chip">
+            <i class="fab fa-java text-2xl" style="color:#007396"></i>
+            <span class="text-xs font-mono text-gray-400">Java</span>
+          </div>
+          <div class="skill-chip">
+            <i class="fa fa-code text-2xl text-cyan-400"></i>
+            <span class="text-xs font-mono text-gray-400">C / C++</span>
+          </div>
+          <div class="skill-chip">
+            <i class="fa fa-database text-2xl text-yellow-400"></i>
+            <span class="text-xs font-mono text-gray-400">SQL</span>
+          </div>
+          <div class="skill-chip">
+            <i class="fa fa-terminal text-2xl text-green-400"></i>
+            <span class="text-xs font-mono text-gray-400">Bash</span>
+          </div>
+          <div class="skill-chip">
+            <i class="fa fa-code text-2xl text-purple-400"></i>
+            <span class="text-xs font-mono text-gray-400">TypeScript</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Web Technologies -->
+      <div class="reveal mb-12">
+        <h3 class="font-orbitron text-cyber-purple text-sm tracking-widest mb-6 flex items-center gap-3">
+          <span class="h-px flex-1 bg-gradient-to-r from-cyber-purple to-transparent"></span>
+          WEB TECHNOLOGIES
+          <span class="h-px flex-1 bg-gradient-to-l from-cyber-purple to-transparent"></span>
+        </h3>
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-4">
+          <div class="skill-chip">
+            <i class="fab fa-react text-2xl text-cyan-400"></i>
+            <span class="text-xs font-mono text-gray-400">React</span>
+          </div>
+          <div class="skill-chip">
+            <i class="fab fa-html5 text-2xl text-orange-500"></i>
+            <span class="text-xs font-mono text-gray-400">HTML5</span>
+          </div>
+          <div class="skill-chip">
+            <i class="fab fa-css3-alt text-2xl text-blue-400"></i>
+            <span class="text-xs font-mono text-gray-400">CSS3</span>
+          </div>
+          <div class="skill-chip">
+            <i class="fab fa-node-js text-2xl text-green-500"></i>
+            <span class="text-xs font-mono text-gray-400">Node.js</span>
+          </div>
+          <div class="skill-chip">
+            <i class="fa fa-server text-2xl text-gray-400"></i>
+            <span class="text-xs font-mono text-gray-400">Express</span>
+          </div>
+          <div class="skill-chip">
+            <i class="fa fa-wind text-2xl text-cyan-300"></i>
+            <span class="text-xs font-mono text-gray-400">Tailwind</span>
+          </div>
+          <div class="skill-chip">
+            <i class="fab fa-bootstrap text-2xl text-purple-500"></i>
+            <span class="text-xs font-mono text-gray-400">Bootstrap</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <div class="reveal">
+        <h3 class="font-orbitron text-pink-500 text-sm tracking-widest mb-6 flex items-center gap-3">
+          <span class="h-px flex-1 bg-gradient-to-r from-pink-500 to-transparent"></span>
+          TOOLS & PLATFORMS
+          <span class="h-px flex-1 bg-gradient-to-l from-pink-500 to-transparent"></span>
+        </h3>
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-4">
+          <div class="skill-chip">
+            <i class="fab fa-git-alt text-2xl text-orange-500"></i>
+            <span class="text-xs font-mono text-gray-400">Git</span>
+          </div>
+          <div class="skill-chip">
+            <i class="fab fa-github text-2xl text-white"></i>
+            <span class="text-xs font-mono text-gray-400">GitHub</span>
+          </div>
+          <div class="skill-chip">
+            <i class="fab fa-docker text-2xl text-blue-400"></i>
+            <span class="text-xs font-mono text-gray-400">Docker</span>
+          </div>
+          <div class="skill-chip">
+            <i class="fa fa-leaf text-2xl text-green-500"></i>
+            <span class="text-xs font-mono text-gray-400">MongoDB</span>
+          </div>
+          <div class="skill-chip">
+            <i class="fab fa-linux text-2xl text-yellow-400"></i>
+            <span class="text-xs font-mono text-gray-400">Linux</span>
+          </div>
+          <div class="skill-chip">
+            <i class="fa fa-fire text-2xl text-orange-400"></i>
+            <span class="text-xs font-mono text-gray-400">Firebase</span>
+          </div>
+          <div class="skill-chip">
+            <i class="fa fa-cube text-2xl text-indigo-400"></i>
+            <span class="text-xs font-mono text-gray-400">VS Code</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════ PROJECTS -->
+  <section id="projects" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+
+      <div class="reveal text-center mb-16">
+        <p class="font-mono text-cyber-cyan text-xs tracking-widest mb-3">// 03. projects</p>
+        <h2 class="section-title text-4xl sm:text-5xl text-white inline-block">Featured Work</h2>
+        <p class="text-gray-500 mt-5 max-w-xl mx-auto text-base">
+          A selection of projects showcasing my skills across the full development stack.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+
+        <!-- Project 1 -->
+        <div class="reveal glass rounded-2xl overflow-hidden group relative flex flex-col">
+          <div class="corner-tl"></div><div class="corner-br"></div>
+
+          <!-- Project image placeholder -->
+          <div class="h-48 relative overflow-hidden" style="background: linear-gradient(135deg, rgba(0,245,255,.08), rgba(191,0,255,.08))">
+            <div class="scan-overlay"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="text-center">
+                <i class="fa fa-globe text-5xl mb-2" style="color: rgba(0,245,255,.4)"></i>
+              </div>
+            </div>
+            <div class="absolute top-3 right-3 font-mono text-xs text-cyber-cyan border border-cyber-cyan border-opacity-30 px-2 py-1 rounded" style="background: rgba(0,245,255,.06)">
+              Full-Stack
+            </div>
+          </div>
+
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="font-orbitron font-bold text-white text-base mb-2 group-hover:text-cyber-cyan transition-colors">
+              Smart Portfolio Tracker
+            </h3>
+            <p class="text-gray-500 text-sm leading-relaxed mb-5 flex-1">
+              A full-stack web application to track personal investment portfolios in real time. Features live stock
+              price integration, performance analytics, and a clean dashboard UI.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-5">
+              <span class="tag">React</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">MongoDB</span>
+              <span class="tag">REST API</span>
+            </div>
+            <div class="flex gap-3">
+              <a href="#" class="btn-primary text-xs px-4 py-2 rounded"><span><i class="fab fa-github mr-1"></i>View Code</span></a>
+              <a href="#" class="btn-secondary text-xs px-4 py-2 rounded"><i class="fa fa-external-link-alt mr-1"></i>Demo</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="reveal glass rounded-2xl overflow-hidden group relative flex flex-col" style="transition-delay: .1s">
+          <div class="corner-tl"></div><div class="corner-br"></div>
+
+          <div class="h-48 relative overflow-hidden" style="background: linear-gradient(135deg, rgba(191,0,255,.08), rgba(255,0,127,.08))">
+            <div class="scan-overlay"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fa fa-comments text-5xl" style="color: rgba(191,0,255,.4)"></i>
+            </div>
+            <div class="absolute top-3 right-3 font-mono text-xs border border-opacity-30 px-2 py-1 rounded" style="color:#bf00ff; border-color:#bf00ff; background: rgba(191,0,255,.06)">
+              Real-Time
+            </div>
+          </div>
+
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="font-orbitron font-bold text-white text-base mb-2 group-hover:neon-purple transition-colors">
+              DevChat — Real-Time App
+            </h3>
+            <p class="text-gray-500 text-sm leading-relaxed mb-5 flex-1">
+              A real-time messaging application for developers. Supports chat rooms, code snippet sharing with syntax
+              highlighting, and user authentication via JWT tokens.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-5">
+              <span class="tag">Socket.io</span>
+              <span class="tag">Express</span>
+              <span class="tag">React</span>
+              <span class="tag">JWT</span>
+            </div>
+            <div class="flex gap-3">
+              <a href="#" class="btn-primary text-xs px-4 py-2 rounded"><span><i class="fab fa-github mr-1"></i>View Code</span></a>
+              <a href="#" class="btn-secondary text-xs px-4 py-2 rounded"><i class="fa fa-external-link-alt mr-1"></i>Demo</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="reveal glass rounded-2xl overflow-hidden group relative flex flex-col" style="transition-delay: .2s">
+          <div class="corner-tl"></div><div class="corner-br"></div>
+
+          <div class="h-48 relative overflow-hidden" style="background: linear-gradient(135deg, rgba(255,0,127,.08), rgba(0,245,255,.08))">
+            <div class="scan-overlay"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fa fa-brain text-5xl" style="color: rgba(255,0,127,.4)"></i>
+            </div>
+            <div class="absolute top-3 right-3 font-mono text-xs border border-opacity-30 px-2 py-1 rounded" style="color:#ff007f; border-color:#ff007f; background: rgba(255,0,127,.06)">
+              AI / ML
+            </div>
+          </div>
+
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="font-orbitron font-bold text-white text-base mb-2 group-hover:text-pink-400 transition-colors">
+              ML Sentiment Analyzer
+            </h3>
+            <p class="text-gray-500 text-sm leading-relaxed mb-5 flex-1">
+              A machine-learning powered web tool that analyses sentiment from text input or Twitter feeds. Trained
+              on labeled datasets using Python and deployed with a Flask REST API.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-5">
+              <span class="tag">Python</span>
+              <span class="tag">Flask</span>
+              <span class="tag">scikit-learn</span>
+              <span class="tag">NLP</span>
+            </div>
+            <div class="flex gap-3">
+              <a href="#" class="btn-primary text-xs px-4 py-2 rounded"><span><i class="fab fa-github mr-1"></i>View Code</span></a>
+              <a href="#" class="btn-secondary text-xs px-4 py-2 rounded"><i class="fa fa-external-link-alt mr-1"></i>Demo</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- View all -->
+      <div class="reveal text-center mt-12">
+        <a href="#" class="btn-secondary rounded-none inline-flex"><i class="fab fa-github mr-2"></i>View All on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════ CONTACT -->
+  <section id="contact" class="py-24 px-6 relative overflow-hidden">
+    <div class="orb w-[500px] h-[500px] bg-cyan-500 opacity-[.04] bottom-0 left-[-10%]"></div>
+
+    <div class="max-w-5xl mx-auto">
+      <div class="reveal text-center mb-16">
+        <p class="font-mono text-cyber-cyan text-xs tracking-widest mb-3">// 04. contact</p>
+        <h2 class="section-title text-4xl sm:text-5xl text-white inline-block">Get In Touch</h2>
+        <p class="text-gray-500 mt-5 max-w-xl mx-auto text-base">
+          Have a project idea, an opportunity, or just want to say hi? I'd love to hear from you.
+        </p>
+      </div>
+
+      <div class="reveal grid grid-cols-1 lg:grid-cols-5 gap-10">
+
+        <!-- Left info panel -->
+        <div class="lg:col-span-2 space-y-6">
+
+          <div class="glass rounded-2xl p-7 relative">
+            <div class="corner-tl"></div><div class="corner-br"></div>
+            <h3 class="font-orbitron text-white text-sm mb-6 tracking-wide">CONNECT WITH ME</h3>
+            <div class="space-y-5">
+              <a href="mailto:siddhant@email.com" class="flex items-center gap-4 group">
+                <div class="social-icon text-base"><i class="fa fa-envelope"></i></div>
+                <div>
+                  <p class="text-xs text-gray-600 font-mono">EMAIL</p>
+                  <p class="text-sm text-gray-300 group-hover:text-cyber-cyan transition-colors">siddhant@email.com</p>
+                </div>
+              </a>
+              <a href="https://github.com/" target="_blank" class="flex items-center gap-4 group">
+                <div class="social-icon text-base"><i class="fab fa-github"></i></div>
+                <div>
+                  <p class="text-xs text-gray-600 font-mono">GITHUB</p>
+                  <p class="text-sm text-gray-300 group-hover:text-cyber-cyan transition-colors">github.com/siddhant-wale</p>
+                </div>
+              </a>
+              <a href="https://linkedin.com/" target="_blank" class="flex items-center gap-4 group">
+                <div class="social-icon text-base"><i class="fab fa-linkedin-in"></i></div>
+                <div>
+                  <p class="text-xs text-gray-600 font-mono">LINKEDIN</p>
+                  <p class="text-sm text-gray-300 group-hover:text-cyber-cyan transition-colors">linkedin.com/in/siddhant-wale</p>
+                </div>
+              </a>
+              <a href="https://twitter.com/" target="_blank" class="flex items-center gap-4 group">
+                <div class="social-icon text-base"><i class="fab fa-twitter"></i></div>
+                <div>
+                  <p class="text-xs text-gray-600 font-mono">TWITTER / X</p>
+                  <p class="text-sm text-gray-300 group-hover:text-cyber-cyan transition-colors">@siddhant_wale</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Availability badge -->
+          <div class="glass rounded-2xl p-5 relative flex items-center gap-4">
+            <div class="w-3 h-3 rounded-full bg-green-400 animate-pulse flex-shrink-0" style="box-shadow:0 0 8px #4ade80"></div>
+            <div>
+              <p class="text-white text-sm font-semibold">Available for Work</p>
+              <p class="text-gray-500 text-xs font-mono">Internships · Freelance · Collaborations</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right contact form -->
+        <div class="lg:col-span-3">
+          <div class="glass rounded-2xl p-8 relative">
+            <div class="corner-tl"></div><div class="corner-br"></div>
+
+            <form id="contact-form" class="space-y-5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label class="font-mono text-xs text-gray-500 tracking-widest block mb-2">NAME</label>
+                  <input type="text" placeholder="Your name" class="cyber-input" required />
+                </div>
+                <div>
+                  <label class="font-mono text-xs text-gray-500 tracking-widest block mb-2">EMAIL</label>
+                  <input type="email" placeholder="you@example.com" class="cyber-input" required />
+                </div>
+              </div>
+
+              <div>
+                <label class="font-mono text-xs text-gray-500 tracking-widest block mb-2">SUBJECT</label>
+                <input type="text" placeholder="What's this about?" class="cyber-input" />
+              </div>
+
+              <div>
+                <label class="font-mono text-xs text-gray-500 tracking-widest block mb-2">MESSAGE</label>
+                <textarea rows="5" placeholder="Tell me about your project or opportunity..." class="cyber-input resize-none"></textarea>
+              </div>
+
+              <button type="submit" class="btn-primary w-full justify-center rounded-none">
+                <span><i class="fa fa-paper-plane mr-2"></i>Send Message</span>
+              </button>
+            </form>
+
+            <!-- Success msg (hidden by default) -->
+            <div id="form-success" class="hidden absolute inset-0 rounded-2xl flex flex-col items-center justify-center gap-4" style="background: rgba(13,17,23,.95)">
+              <i class="fa fa-check-circle text-5xl text-cyber-cyan" style="text-shadow: 0 0 20px #00f5ff"></i>
+              <p class="font-orbitron text-white text-lg">Message Sent!</p>
+              <p class="text-gray-400 text-sm">I'll get back to you as soon as possible.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════ FOOTER -->
+  <footer class="border-t border-cyber-border py-10 px-6">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div>
+        <p class="font-orbitron font-black text-lg neon-cyan tracking-widest">SW<span class="text-white opacity-30">://</span></p>
+        <p class="font-mono text-xs text-gray-600 mt-1">Designed & built by Siddhant Wale</p>
+      </div>
+
+      <div class="flex gap-3">
+        <a href="mailto:siddhant@email.com"  class="social-icon"><i class="fa fa-envelope"></i></a>
+        <a href="https://github.com/"        class="social-icon" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/"      class="social-icon" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://twitter.com/"       class="social-icon" target="_blank"><i class="fab fa-twitter"></i></a>
+      </div>
+
+      <p class="font-mono text-xs text-gray-700">© 2025 Siddhant Wale · All rights reserved</p>
+    </div>
+  </footer>
+
+
+  <!-- ══ SCRIPTS ══════════════════════════════════════════════════════ -->
+  <script>
+    /* ── Hamburger ── */
+    const hamburger  = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+    /* ── Scroll-aware navbar ── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        navbar.style.boxShadow = '0 4px 30px rgba(0,245,255,.06)';
+      } else {
+        navbar.style.boxShadow = 'none';
+      }
+    });
+
+    /* ── Reveal on scroll ── */
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    /* ── Typewriter ── */
+    const phrases = [
+      'Full-Stack Developer',
+      'Problem Solver',
+      'CSE Student @ MIT-VPU',
+      'Open Source Enthusiast',
+      'Building Modern Web Apps',
+    ];
+    let pi = 0, ci = 0, deleting = false;
+    const el = document.getElementById('typewriter-text');
+
+    function type() {
+      const phrase = phrases[pi];
+      if (!deleting) {
+        el.textContent = phrase.slice(0, ++ci);
+        if (ci === phrase.length) { deleting = true; setTimeout(type, 1800); return; }
+      } else {
+        el.textContent = phrase.slice(0, --ci);
+        if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; setTimeout(type, 400); return; }
+      }
+      setTimeout(type, deleting ? 50 : 90);
+    }
+    setTimeout(type, 1000);
+
+    /* ── Contact form ── */
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const success = document.getElementById('form-success');
+      success.classList.remove('hidden');
+      setTimeout(() => {
+        success.classList.add('hidden');
+        this.reset();
+      }, 3500);
+    });
+
+    /* ── Smooth active link highlight ── */
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+      });
+      navLinks.forEach(link => {
+        link.style.color = link.getAttribute('href') === '#' + current ? '#00f5ff' : '';
+      });
+    });
+  </script>
+</body>
+</html>
